@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "828627166541",
+    "firebase_url": "https://dayo-82032.firebaseio.com",
+    "project_id": "dayo-82032",
+    "storage_bucket": "dayo-82032.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828627166541:android:ced1fd1f61742d8b658304",
+        "android_client_info": {
+          "package_name": "com.joo.dayo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "828627166541-r2lnce7t1ppt0b4ea84g8a42pm1kbkjt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHs3mCd8IfCzsHDn-bDUn__hp0x2f2dUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "828627166541-r2lnce7t1ppt0b4ea84g8a42pm1kbkjt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

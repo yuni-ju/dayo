@@ -1,4 +1,4 @@
-package com.example.dayo;
+package com.joo.dayo;
 
 import org.junit.Test;
 

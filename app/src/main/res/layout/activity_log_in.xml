@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4FFD4">
+
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="20dp"
+        android:layout_width="300dp"
+        android:layout_height="250dp" />
+
+    <EditText
+        android:id="@+id/emailTxt"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:layout_gravity="center_horizontal"
+        android:hint="이메일"/>
+
+    <EditText
+        android:id="@+id/pwdTxt"
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:layout_gravity="center_horizontal"
+        android:hint="비밀번호"/>
+
+    <Button
+        android:text="로그인"
+        android:id="@+id/loginBtn"
+        android:background="#CBFF97"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:text="아직 회원이 아니신가요?"
+            android:textSize="7pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginStart="10dp"
+            android:id="@+id/joinText"
+            android:layout_gravity="center_horizontal"
+            android:text="회원가입하기"
+            android:textSize="7pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:text="비밀번호를 잊으셨나요?"
+            android:textSize="7pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginStart="10dp"
+            android:id="@+id/pwdUpdateTxt"
+            android:layout_gravity="center_horizontal"
+            android:text="비밀번호 재설정"
+            android:textSize="7pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
