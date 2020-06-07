@@ -8,6 +8,7 @@ android {
         applicationId "com.joo.dayo"
         minSdkVersion 17
         targetSdkVersion 29
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
 

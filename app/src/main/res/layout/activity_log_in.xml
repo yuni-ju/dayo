@@ -77,8 +77,8 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:layout_marginStart="10dp"
             android:id="@+id/pwdUpdateTxt"
+            android:layout_marginStart="10dp"
             android:layout_gravity="center_horizontal"
             android:text="비밀번호 재설정"
             android:textSize="7pt"

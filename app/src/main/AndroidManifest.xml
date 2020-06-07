@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".JoinActivity" android:label="회원가입" />
         <activity android:name=".MainActivity" android:label="메인화면"/>
+        <activity android:name=".InfoUpdateActivity" android:label="회원정보 수정" />
 
     </application>
 
