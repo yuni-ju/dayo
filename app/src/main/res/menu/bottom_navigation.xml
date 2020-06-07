@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bestItm"
+        android:icon="@drawable/ic_star_black_24dp"
+        android:title="Best"/>
+
+    <item
+        android:id="@+id/NewItm"
+        android:icon="@drawable/ic_speaker_notes_black_24dp"
+        android:title="New"/>
+
+    <item
+        android:id="@+id/MyPageItm"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:title="My Page"/>
+
+</menu>

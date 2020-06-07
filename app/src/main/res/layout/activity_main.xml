@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F4FFD4">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/infoUpdateBtn"
-        android:layout_width="300dp"
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="#CBFF97"
-        android:text="회원정보 수정" />
+        android:layout_above="@+id/bottom_navigation"/>
 
-    <Button
-        android:id="@+id/logOutBtn"
-        android:layout_width="300dp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="#CBFF97"
-        android:text="로그아웃" />
+        android:background="#FFFFFF"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation" />
 
 
-</LinearLayout>
+
+
+</RelativeLayout>

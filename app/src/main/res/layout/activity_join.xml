@@ -10,7 +10,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="20dp"
         android:layout_width="300dp"
-        android:layout_height="250dp" />
+        android:layout_height="150dp" />
 
     <TextView
         android:layout_gravity="center_horizontal"
@@ -20,7 +20,7 @@
 
     <EditText
         android:id="@+id/emailEdt"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -35,6 +35,24 @@
         android:layout_gravity="center_horizontal"
         android:inputType="textPassword"
         android:hint="비밀번호"/>
+
+    <EditText
+        android:id="@+id/pwdEdt2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:inputType="textPassword"
+        android:hint="비밀번호확인"/>
+
+    <EditText
+        android:id="@+id/nameEdt"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:inputType="textPersonName"
+        android:hint="닉네임"/>
 
     <Button
         android:id="@+id/joinBtn"

@@ -1,6 +1,7 @@
 package com.joo.dayo;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,13 +18,14 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class JoinActivity extends Activity {
 
     private FirebaseAuth mAuth;
     //private FirebaseUser currentUser;
 
-    EditText emailEdt, pwdEdt;
+    EditText emailEdt, pwdEdt, pwdEdt2, nameEdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +41,20 @@ public class JoinActivity extends Activity {
 
                 emailEdt = (EditText) findViewById(R.id.emailEdt);
                 pwdEdt = (EditText) findViewById(R.id.pwdEdt);
+                pwdEdt2 = (EditText) findViewById(R.id.pwdEdt2);
+                nameEdt = (EditText) findViewById(R.id.nameEdt);
 
                 final String email = emailEdt.getText().toString();
                 final String pwd =  pwdEdt.getText().toString();
+                final String pwd2 =  pwdEdt2.getText().toString();
+                final String name =  nameEdt.getText().toString();
 
-                if(email.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"이메일을 입력하세요." ,Toast.LENGTH_SHORT).show();
-                }else if(pwd.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"비밀번호를 입력하세요." ,Toast.LENGTH_SHORT).show();
+                if(email.isEmpty()||pwd.isEmpty()||name.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"모든 내용을 입력하세요." ,Toast.LENGTH_SHORT).show();
+                }else if(!pwd.equals(pwd2)){
+                    Toast.makeText(getApplicationContext(),"입력하신 비밀번호가 다릅니다." ,Toast.LENGTH_SHORT).show();
                 }else{
-                    join(email,pwd);
+                    join(email,pwd,name);
                 }
 
             }
@@ -62,7 +68,7 @@ public class JoinActivity extends Activity {
 
     }
 
-    private void join(String email, String pwd){
+    private void join(String email, String pwd, final String name){
         mAuth.createUserWithEmailAndPassword(email,pwd)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -79,9 +85,23 @@ public class JoinActivity extends Activity {
                             } catch(Exception e) {
                                 Toast.makeText(getApplicationContext(),"다시 확인해주세요" ,Toast.LENGTH_SHORT).show();
                             }
-                        }else{
-                            //currentUser = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "회원가입 성공!",Toast.LENGTH_LONG).show();
+                        } else{
+
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name)
+                                    .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
+                                    .build();
+
+                            user.updateProfile(profileUpdates)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(getApplicationContext(), "회원가입 성공!",Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
                             finish();
                         }
 

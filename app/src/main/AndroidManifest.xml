@@ -14,13 +14,19 @@
         <activity android:name=".LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".JoinActivity" android:label="회원가입" />
-        <activity android:name=".MainActivity" android:label="메인화면"/>
-        <activity android:name=".InfoUpdateActivity" android:label="회원정보 수정" />
-
+        <activity
+            android:name=".JoinActivity"
+            android:label="회원가입" />
+        <activity
+            android:name=".MainActivity"
+            android:label="메인화면" />
+        <activity
+            android:name=".InfoUpdateActivity"
+            android:label="회원정보 수정" />
     </application>
 
 </manifest>
