@@ -66,9 +66,14 @@ public class WritePostActivity extends Activity {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         //첫 이미지 뷰 추가하기!!!
+        //ImageView imageView = new ImageView(this);
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(R.drawable.ic_add_to_photos_black_24dp);
         UploadPhoto uploadPhoto = new UploadPhoto(imageView);
+        uploadPhotos.add(uploadPhoto);
+        uploadPhotos.add(uploadPhoto);
+        uploadPhotos.add(uploadPhoto);
+        uploadPhotos.add(uploadPhoto);
         uploadPhotos.add(uploadPhoto);
 
         uploadPhotoAdapter = new UploadPhotoAdapter(uploadPhotos);

@@ -2,7 +2,7 @@
 <ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/uploadPhotoIv"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
     android:src="@drawable/ic_add_to_photos_black_24dp"
     android:gravity="center" />
