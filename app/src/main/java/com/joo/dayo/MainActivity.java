@@ -1,26 +1,26 @@
 package com.joo.dayo;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Gallery;
+import android.widget.ImageView;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser user;
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
-    private BestFragment bestFragment = new BestFragment();
-    private NewFragment newFragment = new NewFragment();
+    private BestPostFragment bestPostFragment = new BestPostFragment();
+    private NewPostFragment newPostFragment = new NewPostFragment();
     private MyPageFragment myPageFragment = new MyPageFragment();
 
     @Override
@@ -39,32 +39,38 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        //bottom navigation
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, bestFragment).commitAllowingStateLoss();
+        transaction.replace(R.id.fragment_container, bestPostFragment).commitAllowingStateLoss();
 
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 switch (item.getItemId()) {
-                    case R.id.bestItm:
-                        transaction.replace(R.id.fragment_container,bestFragment).commitAllowingStateLoss();
+                    case R.id.bestPostItm:
+                        transaction.replace(R.id.fragment_container, bestPostFragment).commitAllowingStateLoss();
                         break;
 
-                    case R.id.NewItm:
-                        transaction.replace(R.id.fragment_container, newFragment).commitAllowingStateLoss();
+                    case R.id.newPostItm:
+                        transaction.replace(R.id.fragment_container, newPostFragment).commitAllowingStateLoss();
                         break;
 
-                    case R.id.MyPageItm:
+                    case R.id.myPageItm:
                         transaction.replace(R.id.fragment_container, myPageFragment).commitAllowingStateLoss();
                         break;
-                }
 
+                    case R.id.writePostItm:
+                        Intent intent = new Intent(getApplicationContext(), WritePostActivity.class);
+                        startActivity(intent);
+                        break;
+                }
                 return true;
             }
         });
+
 
     }
 
@@ -78,5 +84,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
     }
+
+
 
 }

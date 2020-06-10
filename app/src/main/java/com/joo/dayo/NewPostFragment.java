@@ -9,10 +9,11 @@ import androidx.fragment.app.Fragment;
 
 import javax.annotation.Nullable;
 
-public class BestFragment extends Fragment {
+public class NewPostFragment extends Fragment {
+
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        return inflater.inflate(R.layout.fragment_best,container,false);
+        return inflater.inflate(R.layout.fragment_new_post,container,false);
     }
 
 }

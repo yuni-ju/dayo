@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "828627166541-khi16c81kh7c6bascipkcqi0v1d0ne21.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.joo.dayo",
+            "certificate_hash": "78816cd4e270fdcb3533fa38462173d57a6433b2"
+          }
+        },
+        {
           "client_id": "828627166541-r2lnce7t1ppt0b4ea84g8a42pm1kbkjt.apps.googleusercontent.com",
           "client_type": 3
         }
