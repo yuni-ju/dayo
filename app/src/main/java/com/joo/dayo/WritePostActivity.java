@@ -2,24 +2,22 @@ package com.joo.dayo;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,23 +30,26 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.InputStream;
-import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class WritePostActivity extends Activity {
 
     ArrayList<UploadPhoto> uploadPhotos;
     UploadPhotoAdapter uploadPhotoAdapter;
     RecyclerView uploadPhotoView;
+    ImageView cancelIv;
+    TextView uploadPostIv;
 
     private FirebaseAuth mAuth;
     private FirebaseStorage storage;
     int PICK_IMAGE_FROM_ALBUM = 0;
     private Uri uri;
+    private Uri[] uris = new Uri[5];
     private Bitmap bitmap;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_post);
@@ -69,9 +70,57 @@ public class WritePostActivity extends Activity {
         Intent photoPickIntent = new Intent(Intent.ACTION_PICK);
         photoPickIntent.setType(MediaStore.Images.Media.CONTENT_TYPE);
         photoPickIntent.setType("image/*");
+        photoPickIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         startActivityForResult(photoPickIntent, PICK_IMAGE_FROM_ALBUM);
 
+        //리스트뷰에 사진 등록
         init();
+
+        //공유 버튼 클릭 (firebase에 글과 사진 업로드)
+        uploadPostIv = (TextView) findViewById(R.id.uploadPostIv);
+
+        uploadPostIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //contentUpload();
+                storage = FirebaseStorage.getInstance();
+                String imgTemp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
+                int i=0;
+                while(uris[i]!=null){
+                    String imgFileName = "IMAGE_" + imgTemp + i + ".png";
+                    StorageReference storageRef = storage.getReference("images").child(imgFileName);
+                    UploadTask uploadTask = storageRef.putFile(uris[i]);
+                    Toast.makeText(getApplicationContext(),i + "개 업로드 성공",Toast.LENGTH_SHORT).show();
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getApplicationContext(),"업로드 성공",Toast.LENGTH_SHORT).show();
+                            // ...
+                        }
+                    });
+                    i++;
+                }
+                finish();
+            }
+        });
+
+        //x 버튼 클릭
+        cancelIv = (ImageView) findViewById(R.id.cancelIv);
+        cancelIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
     }
 
     @Override
@@ -80,12 +129,22 @@ public class WritePostActivity extends Activity {
 
         if ( requestCode == PICK_IMAGE_FROM_ALBUM) {
             if (resultCode == Activity.RESULT_OK) {
-                if (data.getData() != null) {
+                if(data.getClipData() != null){
+                    int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
+                    if(count>5){
+                        Toast.makeText(this, "사진은 한번에 최대 5개까지 업로드 가능", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    for(int i = 0; i < count; i++) {
+                        uris[i] = data.getClipData().getItemAt(i).getUri();
+                    }
+                    showIv(count);
+                }
+                else if (data.getData() != null) {
                     try {
-                        uri = data.getData();
-                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                        Toast.makeText(getApplicationContext(), "사진 선택 후 ", Toast.LENGTH_SHORT).show();
-                        showIv();
+                        //uri = data.getData();
+                        //bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -104,7 +163,7 @@ public class WritePostActivity extends Activity {
         uploadPhotoView.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         uploadPhotos = new ArrayList<>();
-        uploadPhotoAdapter = new UploadPhotoAdapter(getApplicationContext(), uploadPhotos);
+        uploadPhotoAdapter = new UploadPhotoAdapter(uploadPhotos);
         uploadPhotoView.setAdapter(uploadPhotoAdapter);
 
         //첫 이미지 뷰 추가하기!!!
@@ -116,11 +175,14 @@ public class WritePostActivity extends Activity {
         */
     }
 
-    public void showIv(){
-        ImageView uploadIv = new ImageView(this);
-        uploadIv.setImageURI(uri);
-        UploadPhoto uploadPhoto = new UploadPhoto(uploadIv);
-        uploadPhotos.add(uploadPhoto);
+    public void showIv(int count){
+
+        for(int i=0;i<count;i++) {
+            ImageView uploadIv = new ImageView(this);
+            uploadIv.setImageURI(uris[i]);
+            UploadPhoto uploadPhoto = new UploadPhoto(uploadIv);
+            uploadPhotos.add(uploadPhoto);
+        }
         uploadPhotoAdapter.notifyDataSetChanged();
     }
 
@@ -159,4 +221,5 @@ public class WritePostActivity extends Activity {
             }
         };
     }
+
 }
