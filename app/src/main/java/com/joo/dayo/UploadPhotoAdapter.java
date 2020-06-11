@@ -27,22 +27,57 @@ import static androidx.core.app.ActivityCompat.startActivityForResult;
 public class UploadPhotoAdapter extends RecyclerView.Adapter<UploadPhotoAdapter.UploadPhotoViewHolder>{
 
     private ArrayList<UploadPhoto> uploadPhotos;
+    private Context context;
 
     public class UploadPhotoViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView uploadPhotoIv;
+        ImageView uploadPhotoIv, removeIv;
 
-        public UploadPhotoViewHolder(@NonNull View itemView) {
+        public UploadPhotoViewHolder(@NonNull final View itemView) {
             super(itemView);
             uploadPhotoIv = (ImageView) itemView.findViewById(R.id.uploadPhotoIv);
+            removeIv = (ImageView) itemView.findViewById(R.id.removeIv);
 
             //필요 시 여기서 클릭이벤트 추가
+            uploadPhotoIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+
+                    if(position == getItemCount() -1 && position != RecyclerView.NO_POSITION) {
+                        //사진 추가하기 버튼 처리 todo 최대 사진 갯수 생각해서 제한 두기!
+
+                        ImageView imageView = new ImageView(context);
+                        imageView.setImageResource(R.drawable.ic_add_to_photos_black_24dp);
+                        removeIv.setVisibility(View.VISIBLE);
+                        UploadPhoto uploadPhoto = new UploadPhoto(imageView,removeIv);
+                        uploadPhotos.add(uploadPhoto);
+                        notifyDataSetChanged();
+                    }
+                    else{
+                        //올린 사진 클릭 시 사진 업로드 하도록.
+
+                    }
+                }
+            });
+
+            removeIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (position != uploadPhotos.size() -1 && position != RecyclerView.NO_POSITION) {
+                        uploadPhotos.remove(position);
+                        notifyDataSetChanged();
+                    }
+                }
+            });
 
         }
 
     }
 
-    public UploadPhotoAdapter(ArrayList<UploadPhoto> uploadPhotos) {
+    public UploadPhotoAdapter(Context context, ArrayList<UploadPhoto> uploadPhotos) {
+        this.context = context;
         this.uploadPhotos = uploadPhotos;
     }
 

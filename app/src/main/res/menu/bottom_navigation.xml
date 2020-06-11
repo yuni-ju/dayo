@@ -4,7 +4,7 @@
     <item
         android:id="@+id/bestPostItm"
         android:icon="@drawable/ic_star_black_24dp"
-        android:title="Best"/>
+        android:title="Best" />
 
     <item
         android:id="@+id/newPostItm"

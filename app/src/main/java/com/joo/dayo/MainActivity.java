@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.writePostItm:
                         Intent intent = new Intent(getApplicationContext(), WritePostActivity.class);
                         startActivity(intent);
+                        transaction.addToBackStack(null);
+                        //todo 이전 item 클릭되도록 설정
                         break;
                 }
                 return true;
