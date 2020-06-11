@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -41,18 +43,25 @@ public class WritePostActivity extends Activity {
     RecyclerView uploadPhotoView;
     ImageView cancelIv;
     TextView uploadPostIv;
+    EditText explainEdt;
+    String imgFileName;
 
     private FirebaseAuth mAuth;
     private FirebaseStorage storage;
+    private FirebaseFirestore firestore;
+    private StorageReference storageRef;
     int PICK_IMAGE_FROM_ALBUM = 0;
     private Uri uri;
     private Uri[] uris = new Uri[5];
     private Bitmap bitmap;
 
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_post);
+
+        mAuth=FirebaseAuth.getInstance();
 
         //저장소 권한 요청
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -76,22 +85,23 @@ public class WritePostActivity extends Activity {
         //리스트뷰에 사진 등록
         init();
 
+        //글 내용 연결
+        explainEdt = (EditText)findViewById(R.id.explainEdt);
+
         //공유 버튼 클릭 (firebase에 글과 사진 업로드)
         uploadPostIv = (TextView) findViewById(R.id.uploadPostIv);
-
         uploadPostIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //contentUpload();
-                storage = FirebaseStorage.getInstance();
-                String imgTemp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
+                //사진 업로드
                 int i=0;
+                String imgTemp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
                 while(uris[i]!=null){
                     String imgFileName = "IMAGE_" + imgTemp + i + ".png";
-                    StorageReference storageRef = storage.getReference("images").child(imgFileName);
+                    storageRef = storage.getReference("images").child(imgFileName);
                     UploadTask uploadTask = storageRef.putFile(uris[i]);
-                    Toast.makeText(getApplicationContext(),i + "개 업로드 성공",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),i + "개 사진 업로드 성공",Toast.LENGTH_SHORT).show();
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
@@ -100,12 +110,28 @@ public class WritePostActivity extends Activity {
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getApplicationContext(),"업로드 성공",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"사진 업로드 성공",Toast.LENGTH_SHORT).show();
                             // ...
                         }
                     });
                     i++;
                 }
+
+                //정보 연동 및 글 업로드
+                /*
+                storage = FirebaseStorage.getInstance();
+                firestore = FirebaseFirestore.getInstance();
+                PostData postData = new PostData();
+                i=0;
+                while(uris[i]!=null) {
+                    postData.uris[i] = uris[i].toString();
+                }
+                postData.uid = mAuth.getCurrentUser().getUid();
+                postData.userId = mAuth.getCurrentUser().getEmail();
+                postData.explain = explainEdt.getText().toString();
+                postData.timeStamp = System.currentTimeMillis();
+                firestore.collection("images").document().set(postData);
+                */
                 finish();
             }
         });
@@ -185,41 +211,4 @@ public class WritePostActivity extends Activity {
         }
         uploadPhotoAdapter.notifyDataSetChanged();
     }
-
-    public void contentUpload() {
-        new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                //DB에 등록하기
-                final String cu = mAuth.getUid();
-                //1. 사진을 storage에 저장하고 그 url을 알아내야함..
-                String filename = cu + "_" + System.currentTimeMillis();
-                StorageReference storageRef = storage.getReferenceFromUrl("본인의 Firebase 저장소").child("WriteClassImage/" + filename);
-                UploadTask uploadTask;
-
-                Uri file = uri;
-
-                uploadTask = storageRef.putFile(file);
-
-                // Register observers to listen for when the download is done or if it fails
-
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        Log.v("알림", "사진 업로드 실패");
-                        exception.printStackTrace();
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                        uri = taskSnapshot.getUploadSessionUri();
-                        Log.v("알림", "사진 업로드 성공 " + uri);
-                    }
-                });
-            }
-        };
-    }
-
 }
