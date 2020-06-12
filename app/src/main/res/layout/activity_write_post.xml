@@ -53,9 +53,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:inputType="textMultiLine"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="20dp"
-        android:inputType="text"
         android:hint="내용"
         android:lines="8" />
 

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,14 +28,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class WritePostActivity extends Activity {
 
@@ -46,14 +54,17 @@ public class WritePostActivity extends Activity {
     EditText explainEdt;
     String imgFileName;
 
-    private FirebaseAuth mAuth;
-    private FirebaseStorage storage;
-    private FirebaseFirestore firestore;
-    private StorageReference storageRef;
+    FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
+    FirebaseStorage storage;
+    FirebaseFirestore firestore;
+    StorageReference storageRef;
     int PICK_IMAGE_FROM_ALBUM = 0;
-    private Uri uri;
-    private Uri[] uris = new Uri[5];
-    private Bitmap bitmap;
+    Uri uri;
+    Uri[] uris = new Uri[5];
+    List<String> photoName;
+    byte[] resizedByte = new byte[5];
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -62,6 +73,7 @@ public class WritePostActivity extends Activity {
         setContentView(R.layout.activity_write_post);
 
         mAuth=FirebaseAuth.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         //저장소 권한 요청
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -85,9 +97,6 @@ public class WritePostActivity extends Activity {
         //리스트뷰에 사진 등록
         init();
 
-        //글 내용 연결
-        explainEdt = (EditText)findViewById(R.id.explainEdt);
-
         //공유 버튼 클릭 (firebase에 글과 사진 업로드)
         uploadPostIv = (TextView) findViewById(R.id.uploadPostIv);
         uploadPostIv.setOnClickListener(new View.OnClickListener() {
@@ -95,12 +104,14 @@ public class WritePostActivity extends Activity {
             public void onClick(View view) {
 
                 //사진 업로드
+                photoName = new ArrayList<>();
                 int i=0;
                 String imgTemp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
                 while(uris[i]!=null){
                     String imgFileName = "IMAGE_" + imgTemp + i + ".png";
                     storageRef = storage.getReference("images").child(imgFileName);
-                    UploadTask uploadTask = storageRef.putFile(uris[i]);
+                    photoName.add(imgFileName);
+                    UploadTask uploadTask = storageRef.putBytes(resizedByte);
                     Toast.makeText(getApplicationContext(),i + "개 사진 업로드 성공",Toast.LENGTH_SHORT).show();
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -132,6 +143,21 @@ public class WritePostActivity extends Activity {
                 postData.timeStamp = System.currentTimeMillis();
                 firestore.collection("images").document().set(postData);
                 */
+
+                //글 내용 연결
+                explainEdt = (EditText)findViewById(R.id.explainEdt);
+
+                //글 업로드
+                Toast.makeText(getApplicationContext(),explainEdt.getText().toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"uri",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),firebaseUser.getUid(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),firebaseUser.getEmail(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),imgTemp,Toast.LENGTH_SHORT).show();
+
+                PostData postData = new PostData(explainEdt.getText().toString(),  photoName ,firebaseUser.getUid(),firebaseUser.getEmail(),imgTemp);
+                firestore = FirebaseFirestore.getInstance();
+                firestore.collection("post").document(firebaseUser.getUid()).set(postData);
+
                 finish();
             }
         });
@@ -162,7 +188,21 @@ public class WritePostActivity extends Activity {
                         finish();
                     }
                     for(int i = 0; i < count; i++) {
+
                         uris[i] = data.getClipData().getItemAt(i).getUri();
+
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 4;
+                        Bitmap src = null;
+                        try {
+                            src = MediaStore.Images.Media.getBitmap(getContentResolver(), uris[i]);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Bitmap resized = Bitmap.createScaledBitmap(src, 300, 300, true);
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        resized.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        byte[] resizedByte = baos.toByteArray();
                     }
                     showIv(count);
                 }
