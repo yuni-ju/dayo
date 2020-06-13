@@ -12,7 +12,7 @@ public class PostData {
     public String timeStamp; //글 올린 시간
     public int favorite; //좋아요 개수
     public Map<String, Boolean> favorites = new HashMap<String,Boolean>(); //중복좋아요 방지(uid,좋아요여부)
-
+    public int folderNum;
 
     //댓글
     public class Comment {
@@ -22,13 +22,14 @@ public class PostData {
         Long comTimeStamp;
     }
 
-    public PostData(String explain,String photoName, String uid, String userId, String timeStamp, int favorite) {
+    public PostData(String explain,String photoName, String uid, String userId, String timeStamp, int favorite, int folderNum) {
         this.explain = explain;
         this.photoName = photoName;
         this.uid = uid;
         this.userId = userId;
         this.timeStamp = timeStamp;
-        this.favorite=0;
+        this.favorite = favorite;
+        this.folderNum=folderNum;
         //Comment comment = new Comment();
     }
 
@@ -83,4 +84,17 @@ public class PostData {
     public void setFavorites(Map<String, Boolean> favorites) {
         this.favorites = favorites;
     }
+
+    public void setPhotoName(String photoName) {
+        this.photoName = photoName;
+    }
+
+    public int getFolderNum() {
+        return folderNum;
+    }
+
+    public void setFolderNum(int folderNum) {
+        this.folderNum = folderNum;
+    }
+
 }

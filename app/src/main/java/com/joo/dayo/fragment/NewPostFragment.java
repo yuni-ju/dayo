@@ -78,7 +78,8 @@ public class NewPostFragment extends Fragment {
                                         document.getData().get("uid").toString(),
                                         document.getData().get("userId").toString(),
                                         document.getData().get("timeStamp").toString(),
-                                        Integer.parseInt(document.getData().get("favorite").toString())
+                                        Integer.parseInt(document.getData().get("favorite").toString()),
+                                        Integer.parseInt(document.getData().get("folderNum").toString())
                                 ));
                             }
 
@@ -96,10 +97,6 @@ public class NewPostFragment extends Fragment {
                         }
                     }
                 });
-
-
-
-
 
     }
 

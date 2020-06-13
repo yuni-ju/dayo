@@ -59,27 +59,10 @@ public class UploadPhotoAdapter extends RecyclerView.Adapter<UploadPhotoAdapter.
                     }
                     else{
                         //올린 사진 클릭 시 사진 업로드 하도록.
-
                     }
                 }
             });
 
-            /*
-            removeIv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if(uploadPhotos.size()==1 ){
-                        Toast.makeText(view.getContext(), "사진 전부 삭제", Toast.LENGTH_SHORT).show();
-                        ((Activity)view.getContext()).finish();
-                    }
-                    else if (position != RecyclerView.NO_POSITION) {
-                        uploadPhotos.remove(position);
-                        notifyDataSetChanged();
-                    }
-                }
-            });
-            */
         }
 
     }

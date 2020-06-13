@@ -124,7 +124,7 @@ public class WritePostActivity extends Activity {
                 explainEdt = (EditText) findViewById(R.id.explainEdt);
 
                 //글 업로드
-                 PostData postData = new PostData(explainEdt.getText().toString(), imgFileName, firebaseUser.getUid(), firebaseUser.getEmail(), imgTemp, 0);
+                 PostData postData = new PostData(explainEdt.getText().toString(), imgFileName, firebaseUser.getUid(), firebaseUser.getEmail(), imgTemp, 0,0);
                  firestore = FirebaseFirestore.getInstance();
                  firestore.collection("post").add(postData);
 

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="20dp"
@@ -39,7 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:background="#CBFF97"
+        android:background="#A99D8D"
+        android:textColor="#F9F8F8"
         android:text="변경하기" />
 
 </LinearLayout>

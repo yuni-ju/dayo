@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/UpdateStatusBtn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#F9F8F8"
+            android:background="#A99D8D"
+            android:text="상태메세지 수정" />
+
+        <Button
+            android:id="@+id/UpdatePwBtn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:textColor="#F9F8F8"
+            android:background="#A99D8D"
+            android:text="비밀번호 수정" />
+
+        <Button
+            android:id="@+id/logOutBtn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:textColor="#F9F8F8"
+            android:background="#A99D8D"
+            android:text="로그아웃" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

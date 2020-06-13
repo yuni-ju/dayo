@@ -26,8 +26,11 @@
             android:name=".activity.MainActivity"
             android:label="메인화면" />
         <activity
-            android:name=".activity.InfoUpdateActivity"
-            android:label="회원정보 수정" />
+            android:name=".activity.SettingPageActivity"
+            android:label="설정" />
+        <activity
+            android:name=".activity.UpdatePwActivity"
+            android:label="비밀번호 수정" />
         <activity android:name=".activity.WritePostActivity"
             android:label="글쓰기" />
 

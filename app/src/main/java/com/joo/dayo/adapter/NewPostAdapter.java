@@ -42,15 +42,12 @@ public class NewPostAdapter extends RecyclerView.Adapter<NewPostAdapter.NewPostV
         ImageView contentPhotoView;
         TextView userNameTxt, contentTxt ;
 
-
-
         public NewPostViewHolder(@NonNull View itemView) {
             super(itemView);
 
             userNameTxt = (TextView) itemView.findViewById(R.id.userNameTxt);
             contentTxt = (TextView) itemView.findViewById(R.id.contentTxt);
             contentPhotoView = (ImageView) itemView.findViewById(R.id.contentPhotoView);
-
 
         }
     }
@@ -83,7 +80,8 @@ public class NewPostAdapter extends RecyclerView.Adapter<NewPostAdapter.NewPostV
                     @Override
                     public void onSuccess(byte[] bytes) {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                        holder.contentPhotoView.setImageBitmap(bitmap);
+                        Bitmap resize = Bitmap.createScaledBitmap(bitmap, 300, 300, false);
+                        holder.contentPhotoView.setImageBitmap(resize);
                         Log.d("비트맵", "success!");
                     }
                 });

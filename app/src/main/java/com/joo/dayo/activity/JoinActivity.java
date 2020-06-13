@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,13 +20,18 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.joo.dayo.R;
+import com.joo.dayo.data.UserData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class JoinActivity extends Activity {
 
     private FirebaseAuth mAuth;
     //private FirebaseUser currentUser;
-
+    FirebaseFirestore firestore;
     EditText emailEdt, pwdEdt, pwdEdt2, nameEdt;
 
     @Override
@@ -88,7 +94,7 @@ public class JoinActivity extends Activity {
                             }
                         } else{
 
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(name)
                                     .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
@@ -99,6 +105,15 @@ public class JoinActivity extends Activity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
+
+                                                //유저 db 생성
+                                                List<String> folderList = new ArrayList<>();
+                                                folderList.add("기본 폴더");
+
+                                                UserData userData = new UserData("",folderList);
+                                                firestore = FirebaseFirestore.getInstance();
+                                                firestore.collection("user").document(user.getUid()).set(userData);
+
                                                 Toast.makeText(getApplicationContext(), "회원가입 성공!",Toast.LENGTH_LONG).show();
                                             }
                                         }

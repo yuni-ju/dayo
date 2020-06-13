@@ -7,9 +7,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/newPostView"
+        android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="15dp"
+        android:layout_marginHorizontal="3dp"
         android:scrollbars="vertical" />
 
 </LinearLayout>

@@ -47,14 +47,17 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.bestPostItm:
                         transaction.replace(R.id.fragment_container, bestPostFragment).commitAllowingStateLoss();
+                        setTitle("인기 글");
                         break;
 
                     case R.id.newPostItm:
                         transaction.replace(R.id.fragment_container, newPostFragment).commitAllowingStateLoss();
+                        setTitle("최신 글");
                         break;
 
                     case R.id.myPageItm:
                         transaction.replace(R.id.fragment_container, myPageFragment).commitAllowingStateLoss();
+                        setTitle("My Diary");
                         break;
 
                     case R.id.writePostItm:
