@@ -1,12 +1,9 @@
-package com.joo.dayo;
+package com.joo.dayo.adapter;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.joo.dayo.R;
+import com.joo.dayo.data.UploadPhoto;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import static androidx.core.app.ActivityCompat.startActivityForResult;
+
 
 public class UploadPhotoAdapter extends RecyclerView.Adapter<UploadPhotoAdapter.UploadPhotoViewHolder>{
 
@@ -67,6 +64,7 @@ public class UploadPhotoAdapter extends RecyclerView.Adapter<UploadPhotoAdapter.
                 }
             });
 
+            /*
             removeIv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -81,7 +79,7 @@ public class UploadPhotoAdapter extends RecyclerView.Adapter<UploadPhotoAdapter.
                     }
                 }
             });
-
+            */
         }
 
     }

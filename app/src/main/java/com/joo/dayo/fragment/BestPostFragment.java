@@ -1,4 +1,4 @@
-package com.joo.dayo;
+package com.joo.dayo.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
+import com.joo.dayo.R;
 
 import javax.annotation.Nullable;
 

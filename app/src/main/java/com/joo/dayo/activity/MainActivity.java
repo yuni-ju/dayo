@@ -1,26 +1,21 @@
-package com.joo.dayo;
+package com.joo.dayo.activity;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.MenuItem;
-import android.widget.Gallery;
-import android.widget.ImageView;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
+import com.joo.dayo.fragment.BestPostFragment;
+import com.joo.dayo.fragment.MyPageFragment;
+import com.joo.dayo.fragment.NewPostFragment;
+import com.joo.dayo.R;
 
 public class MainActivity extends AppCompatActivity {
 

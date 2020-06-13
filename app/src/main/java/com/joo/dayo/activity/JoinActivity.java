@@ -1,4 +1,4 @@
-package com.joo.dayo;
+package com.joo.dayo.activity;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.joo.dayo.R;
 
 public class JoinActivity extends Activity {
 

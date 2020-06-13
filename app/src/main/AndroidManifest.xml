@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".LogInActivity">
+        <activity android:name=".activity.LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,15 +20,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".JoinActivity"
+            android:name=".activity.JoinActivity"
             android:label="회원가입" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="메인화면" />
         <activity
-            android:name=".InfoUpdateActivity"
+            android:name=".activity.InfoUpdateActivity"
             android:label="회원정보 수정" />
-        <activity android:name=".WritePostActivity"
+        <activity android:name=".activity.WritePostActivity"
             android:label="글쓰기" />
 
     </application>

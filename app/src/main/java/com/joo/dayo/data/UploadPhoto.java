@@ -1,4 +1,4 @@
-package com.joo.dayo;
+package com.joo.dayo.data;
 
 import android.widget.ImageView;
 

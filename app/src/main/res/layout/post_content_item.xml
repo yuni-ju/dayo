@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/userImgIv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="10dp"
+            android:src="@drawable/ic_account_circle_black_24dp"/>
+
+        <TextView
+            android:id="@+id/userNameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:paddingTop="15dp"
+            android:layout_gravity="center_vertical"
+            android:text="유저 이름"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/contentPhotoView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:scrollbars="horizontal"/>
+
+    <TextView
+        android:id="@+id/contentTxt"
+        android:layout_marginStart="10dp"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/favoriteIv"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_favorite_border_black_24dp"/>
+
+        <ImageView
+            android:id="@+id/commentIv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_chat_bubble_outline_black_24dp" />
+
+        <TextView
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="좋아요"/>
+
+        <TextView
+            android:id="@+id/favoriteCnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="0"/>
+
+        <TextView
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="댓글"/>
+
+        <TextView
+            android:id="@+id/commentCnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="0"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
