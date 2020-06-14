@@ -15,17 +15,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.joo.dayo.R;
 import com.joo.dayo.data.PostData;
+import com.joo.dayo.data.UserData;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,9 +39,9 @@ import java.util.ArrayList;
 public class NewPostAdapter extends RecyclerView.Adapter<NewPostAdapter.NewPostViewHolder>{
 
     ArrayList<PostData> newPostList;
-    //ArrayList<ContentPhoto> contentPhotos;
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    ArrayList<PostData> folderPostList;
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    int folderSize, folderNum;
 
     public class NewPostViewHolder extends RecyclerView.ViewHolder {
 
@@ -68,33 +74,25 @@ public class NewPostAdapter extends RecyclerView.Adapter<NewPostAdapter.NewPostV
     @Override
     public void onBindViewHolder(@NonNull final NewPostViewHolder holder, int position) {
 
-
         holder.userNameTxt.setText(newPostList.get(position).userId);
         holder.contentTxt.setText(newPostList.get(position).getExplain());
 
         //이미지 불러와서 넣기
-        StorageReference photoRef  = storage.getReference("images").child(newPostList.get(position).getPhotoName());
 
-        photoRef.getBytes(1024 * 1024 *5)
-                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                        Bitmap resize = Bitmap.createScaledBitmap(bitmap, 300, 300, false);
-                        holder.contentPhotoView.setImageBitmap(resize);
-                        Log.d("비트맵", "success!");
-                    }
-                });
-       /*
-        photoRef.getDownloadUrl()
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Log.d("URI다운", "Download url is: " + uri.toString());
-                        holder.contentPhotoView.setImageURI(uri);
-                    }
-                });
-        */
+            StorageReference photoRef = storage.getReference("images").child(newPostList.get(position).getPhotoName());
+
+            photoRef.getBytes(1024 * 1024 * 5)
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            Bitmap resize = Bitmap.createScaledBitmap(bitmap, 300, 300, false);
+                            holder.contentPhotoView.setImageBitmap(resize);
+                            Log.d("비트맵", "success!");
+                        }
+                    });
+
+
     }
 
     @Override

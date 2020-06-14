@@ -29,10 +29,13 @@
             android:name=".activity.SettingPageActivity"
             android:label="설정" />
         <activity
-            android:name=".activity.UpdatePwActivity"
+            android:name=".activity.UpdatePwdActivity"
             android:label="비밀번호 수정" />
         <activity android:name=".activity.WritePostActivity"
-            android:label="글쓰기" />
+            android:windowSoftInputMode="adjustPan"
+             android:label="글쓰기" />
+        <activity android:name=".activity.FolderPostActivity"
+            android:label="폴더 별 사진" />
 
     </application>
 

@@ -2,12 +2,15 @@ package com.joo.dayo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container, bestPostFragment).commitAllowingStateLoss();
-
+        Log.d("Main의 뭐가 실행?","OnCreate");
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -64,15 +67,15 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), WritePostActivity.class);
                         startActivity(intent);
                         transaction.addToBackStack(null);
-                        //todo 이전 item 클릭되도록 설정
                         break;
                 }
                 return true;
             }
         });
 
-
     }
+
+
 
     @Override
     public void onStart() {

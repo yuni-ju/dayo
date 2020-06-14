@@ -15,12 +15,14 @@ public class PostData {
     public int folderNum;
 
     //댓글
+    /*
     public class Comment {
         String comUid;
         String comUserId;
         String comContent;
         Long comTimeStamp;
     }
+     */
 
     public PostData(String explain,String photoName, String uid, String userId, String timeStamp, int favorite, int folderNum) {
         this.explain = explain;

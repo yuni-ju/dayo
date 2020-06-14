@@ -38,7 +38,7 @@ public class UploadPhotoAdapter extends RecyclerView.Adapter<UploadPhotoAdapter.
         public UploadPhotoViewHolder(@NonNull final View itemView) {
             super(itemView);
             uploadPhotoIv = (ImageView) itemView.findViewById(R.id.uploadPhotoIv);
-            removeIv = (ImageView) itemView.findViewById(R.id.removeIv);;
+            //removeIv = (ImageView) itemView.findViewById(R.id.removeIv);;
 
             //필요 시 여기서 클릭이벤트 추가
             uploadPhotoIv.setOnClickListener(new View.OnClickListener() {
@@ -47,15 +47,7 @@ public class UploadPhotoAdapter extends RecyclerView.Adapter<UploadPhotoAdapter.
                     int position = getAdapterPosition();
 
                     if(position == getItemCount() -1 && position != RecyclerView.NO_POSITION) {
-                        /*
-                        //사진 추가하기 버튼 처리
-                        ImageView imageView = new ImageView(context);
-                        imageView.setImageResource(R.drawable.ic_add_to_photos_black_24dp);
-                        removeIv.setVisibility(View.VISIBLE);
-                        UploadPhoto uploadPhoto = new UploadPhoto(imageView,removeIv);
-                        uploadPhotos.add(uploadPhoto);
-                        notifyDataSetChanged();
-                         */
+
                     }
                     else{
                         //올린 사진 클릭 시 사진 업로드 하도록.

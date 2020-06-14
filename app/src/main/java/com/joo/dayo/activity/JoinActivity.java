@@ -108,7 +108,7 @@ public class JoinActivity extends Activity {
 
                                                 //유저 db 생성
                                                 List<String> folderList = new ArrayList<>();
-                                                folderList.add("기본 폴더");
+                                                folderList.add("Daily");
 
                                                 UserData userData = new UserData("",folderList);
                                                 firestore = FirebaseFirestore.getInstance();

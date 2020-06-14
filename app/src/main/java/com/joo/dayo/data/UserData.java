@@ -6,6 +6,7 @@ import java.util.List;
 public class UserData {
     String status;
     List<String> folderList;
+    int folderNum;
 
     public UserData(){}
 
@@ -24,6 +25,11 @@ public class UserData {
 
     public List<String> getFolder() {
         return folderList;
+    }
+
+    public int getFolderNum() {
+        folderNum = folderList.size();
+        return folderNum;
     }
 
     public void setFolder(List<String> folderList) {

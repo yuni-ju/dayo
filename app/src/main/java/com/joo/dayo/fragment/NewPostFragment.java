@@ -27,6 +27,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
@@ -47,17 +48,13 @@ public class NewPostFragment extends Fragment {
     RecyclerView newPostView;
     ArrayList<PostData> newPostList;
 
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
 
         firestore = FirebaseFirestore.getInstance();
+        init();
 
         return inflater.inflate(R.layout.fragment_new_post,container,false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @androidx.annotation.Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        init();
     }
 
     void init(){
@@ -66,6 +63,7 @@ public class NewPostFragment extends Fragment {
 
         //db에서 가져오기
         firestore.collection("post")
+                .orderBy("timeStamp", Query.Direction.DESCENDING )
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
