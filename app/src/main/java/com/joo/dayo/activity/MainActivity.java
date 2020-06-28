@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container, bestPostFragment).commitAllowingStateLoss();
-        Log.d("Main의 뭐가 실행?","OnCreate");
+        setTitle("인기 글");
+
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

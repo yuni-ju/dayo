@@ -1,7 +1,6 @@
 package com.joo.dayo.data;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PostData {
@@ -11,7 +10,7 @@ public class PostData {
     public String userId; //올린 유저 이메일
     public String timeStamp; //글 올린 시간
     public int favorite; //좋아요 개수
-    public Map<String, Boolean> favorites = new HashMap<String,Boolean>(); //중복좋아요 방지(uid,좋아요여부)
+    public  Map<String, Boolean> favorites = new HashMap<>(); //중복좋아요 방지(uid,좋아요여부)
     public int folderNum;
 
     //댓글
@@ -24,6 +23,12 @@ public class PostData {
     }
      */
 
+    public PostData(String uid, Map<String,Boolean>favorites){
+        this.uid=uid;
+        this.favorites=favorites;
+    }
+
+
     public PostData(String explain,String photoName, String uid, String userId, String timeStamp, int favorite, int folderNum) {
         this.explain = explain;
         this.photoName = photoName;
@@ -32,7 +37,17 @@ public class PostData {
         this.timeStamp = timeStamp;
         this.favorite = favorite;
         this.folderNum=folderNum;
-        //Comment comment = new Comment();
+    }
+
+    public PostData(String explain,String photoName, String uid, String userId, String timeStamp,Map<String,Boolean>favorites, int favorite, int folderNum) {
+        this.explain = explain;
+        this.photoName = photoName;
+        this.uid = uid;
+        this.userId = userId;
+        this.timeStamp = timeStamp;
+        this.favorites = favorites;
+        this.favorite = favorite;
+        this.folderNum=folderNum;
     }
 
     public String getPhotoName() {
@@ -79,9 +94,7 @@ public class PostData {
         this.favorite = favorite;
     }
 
-    public Map<String, Boolean> getFavorites() {
-        return favorites;
-    }
+    public Map<String, Boolean> getFavorites() {return favorites;}
 
     public void setFavorites(Map<String, Boolean> favorites) {
         this.favorites = favorites;

@@ -130,7 +130,7 @@ public class WritePostActivity extends Activity {
 
         folderSpinner.setSelection(0);
         folderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override   // position 으로 몇번째 것이 선택됬는지 값을 넘겨준다
+            @Override   // position 으로 몇번째 것이 선택되었는지 값을 넘겨준다
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectFolderNum = position;
             }
@@ -169,7 +169,7 @@ public class WritePostActivity extends Activity {
                 explainEdt = (EditText) findViewById(R.id.explainEdt);
 
                 //글 업로드
-                 PostData postData = new PostData(explainEdt.getText().toString(), imgFileName, firebaseUser.getUid(), firebaseUser.getEmail(), imgTemp, 0,selectFolderNum);
+                 PostData postData = new PostData(explainEdt.getText().toString(), imgFileName, firebaseUser.getUid(), firebaseUser.getEmail(), imgTemp,  0, selectFolderNum);
                  firestore = FirebaseFirestore.getInstance();
                  firestore.collection("post").add(postData);
 

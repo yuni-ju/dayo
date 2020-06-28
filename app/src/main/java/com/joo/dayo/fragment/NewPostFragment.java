@@ -37,6 +37,8 @@ import com.joo.dayo.adapter.NewPostAdapter;
 import com.joo.dayo.data.PostData;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -76,9 +78,11 @@ public class NewPostFragment extends Fragment {
                                         document.getData().get("uid").toString(),
                                         document.getData().get("userId").toString(),
                                         document.getData().get("timeStamp").toString(),
+                                        (Map<String, Boolean>) document.getData().get("favorites"),
                                         Integer.parseInt(document.getData().get("favorite").toString()),
                                         Integer.parseInt(document.getData().get("folderNum").toString())
                                 ));
+
                             }
 
                             //연결

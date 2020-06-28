@@ -25,6 +25,7 @@ public class LogInActivity extends Activity {
     private FirebaseAuth mAuth;
     TextView joinText, pwdUpdateTxt;
     Button loginBtn;
+    FirebaseUser user;
     EditText emailTxt, pwdTxt;
 
     @Override
@@ -112,8 +113,10 @@ public class LogInActivity extends Activity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                            user = FirebaseAuth.getInstance().getCurrentUser();
+                            String name = user.getDisplayName();
+                            Toast.makeText(getApplicationContext(), name + "님 안녕하세요!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
 
@@ -122,7 +125,6 @@ public class LogInActivity extends Activity {
                             Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
                         }
 
-                        // ...
                     }
                 });
     }

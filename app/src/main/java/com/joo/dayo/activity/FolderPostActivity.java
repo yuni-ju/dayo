@@ -56,7 +56,7 @@ public class FolderPostActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(this, "Back button pressed.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Back button pressed.", Toast.LENGTH_SHORT).show();
         super.onBackPressed();
         finish();
     }

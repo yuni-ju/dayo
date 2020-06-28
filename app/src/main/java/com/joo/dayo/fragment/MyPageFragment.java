@@ -86,7 +86,7 @@ public class MyPageFragment extends Fragment {
 
             String uid = user.getUid();
 
-            Toast.makeText(this.getContext(), name + "님 안녕하세요!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.getContext(), name + "님 안녕하세요!", Toast.LENGTH_SHORT).show();
         }
 
         //내 정보 연결
